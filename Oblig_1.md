@@ -37,7 +37,7 @@ Når programmet kjører den evige løkken, brukes 7,2MB minne og 0 CPU. Fordi de
 
 ### Oppgave 4
 #### Oppgave 4A
-Funksjonen er testet på Mac OS og Windows, hvor både terminal og Powershell er benyttet. Det var kun Windows Powershell ISE (x86) som skrev ut riktige symboler for det utvidede ASCII settet. Jeg antar dette er fordi denne versjonen av Powershell har støtte for 8-bits tegn, som ikke Windows eller MacOS har default støtte for. 
+Funksjonen er testet på Mac OS og Windows, hvor både terminal og Powershell er benyttet. Det var kun Windows Powershell ISE (x86) som skrev ut riktige symboler for det utvidede ASCII settet. Jeg antar dette er fordi denne versjonen av Powershell har full støtte for UNICODE tegn, som ikke Windows eller MacOS har default støtte for. 
 
 #### Oppgave 4B
 
