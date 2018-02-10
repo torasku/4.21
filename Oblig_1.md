@@ -31,7 +31,8 @@ Eks:
 6/2 = 3  | 6 % 2 = 0
 3/2 = 1  | 3 % 2 = 1
 1/2 = 0  | 1 % 2 = 1
-##### Resultat = 1101 
+
+     Resultat = 1101 
 
 #### Oppgave 1B
 ##### Hexa til desimal 
