@@ -3,15 +3,20 @@
 | Binære tall         | Hexa          | Desimal  |
 | -------------       |:-------------:| --------:|
 |       1101          |       D       |    13    |
-| 110111101010        |      DEA      |   3562   |
-| 1010111100110100    |      AF34     |   44852  |
+| 1101 1110 1010      |      DEA      |   3562   |
+| 1010 1111 0011 0100 |      AF34     |   44852  |
 | 1111 1111 1111 1111 |      FFFF     |   65535  |
 | 1000 1011 1100 01010|     1178A     |   71562  |
 
 #### Oppgave 1A
 ##### Binær til hexa
+Man velger ut 4 binære tall, opphøyer de i riktig tall (bakfra blir det 1, 2, 4 og 8). 
+Eks: 1101 = 1^8 + 1^4 + 0*2 + 1^1 = 8 + 4 + 0 + 1 = 13
+Tallet 13 tilsvarer hexa D. 
 
 ##### Hexa til binær
+Her kan man benytte en tabell med hexa fra 0 - F med tilsvarende binære tall, og skrive om. 
+Eks: DAB --> 1101 1010 1011
 
 ##### Binær til desimal
 Man kan sette det opp på følgende måte: 
@@ -29,17 +34,27 @@ Eks:
 ##### Resultat = 1101 
 
 #### Oppgave 1B
-##### Hexa til desimal og motsatt
+##### Hexa til desimal 
+Først multipliseres hexa tallet med 16 opphøyd med 0 (starter med 0 fra bakerste og øker med 1). Resultatet legges sammen og man får desimaltallet. 
+Eks: C9 = 9 * 16^0 + 12 * 16^1 = 192 + 9 = 201
+
+##### Desimal til hexa
+Her må man dele desimaltallet på 16 helt til man er kommet til 0. 
+Eks: 3000
+     3000 / 16 = 187 | rest = 8 
+     187 / 16 = 11   | rest = B       
+     11 / 16 = 0     | rest = B
+     
+     Resultat =  BB8
+     
 #### Oppgave 2C
 
 ### Oppgave 3
 Når programmet kjører den evige løkken, brukes 7,2MB minne og 0 CPU. Fordi den evige løkken ikke gjør noen operasjoner, brukes det kun litt minne, men ingen prosesser blir kjørt som bruker noe CPU. 
 
 ### Oppgave 4
-#### Oppgave 4A
+#### Oppgave 4A og B
 Funksjonen er testet på Mac OS og Windows, hvor både terminal og Powershell er benyttet. Det var kun Windows Powershell ISE (x86) som skrev ut riktige symboler for det utvidede ASCII settet. Jeg antar dette er fordi denne versjonen av Powershell har full støtte for UNICODE tegn, som ikke Windows eller MacOS har default støtte for. 
-
-#### Oppgave 4B
 
 
 
