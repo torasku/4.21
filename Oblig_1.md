@@ -1,7 +1,7 @@
 ### Oppgave 1
 
 | Binære tall         | Hexa          | Desimal  |
-| -------------       |:-------------:| --------:|
+|:-------------------:|:-------------:| --------:|
 |       1101          |       D       |    13    |
 | 1101 1110 1010      |      DEA      |   3562   |
 | 1010 1111 0011 0100 |      AF34     |   44852  |
@@ -50,7 +50,7 @@ Eks: 3000
      
 #### Oppgave 2C
 
-|  Test                            |    Loop runs       |  Result        |
+|  Test                            |    Loop runs       |    Result      |
 |:--------------------------------:|:------------------:|:--------------:|
 |BenchmarkBSortModified100-4       |         50000      |   25986 ns/op  |
 |BenchmarkBSortModified1000-4      |         1000       |  1806256 ns/op |
@@ -61,6 +61,8 @@ Eks: 3000
 |BenchmarkQSort100-4               |        300000      |   5245 ns/op   |
 |BenchmarkQSort1000-4              |         20000      |   66977 ns/op  |
 |BenchmarkQSort10000-4             |          2000      |   875689 ns/op |
+
+Utifra Big-O notasjon for bubbleSort og quickSort, skal værste tilfellet være likt for begge algoritmene. Alikevel ser vi at i gjennomsnitt så vil quickSort være noe raskere med en Big-O på O(n log(n)). Hvis vi ser på resultatene fra benchmark testene ovenfor, vil vi få en bekreftelse på at quicksort utfører operasjoner raskere enn bubbleSort. 
 
 ### Oppgave 3
 Når programmet kjører den evige løkken, brukes 7,2MB minne og 0 CPU. Fordi den evige løkken ikke gjør noen operasjoner, brukes det kun litt minne, men ingen prosesser blir kjørt som bruker noe CPU. 
