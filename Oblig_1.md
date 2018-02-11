@@ -50,6 +50,18 @@ Eks: 3000
      
 #### Oppgave 2C
 
+|  Test                            |    Loop runs       |  Result        |
+|:--------------------------------:|:------------------:|:--------------:|
+|BenchmarkBSortModified100-4       |         50000      |   25986 ns/op  |
+|BenchmarkBSortModified1000-4      |         1000       |  1806256 ns/op |
+|BenchmarkBSortModified10000-4     |             5      | 251170600 ns/op|
+|BenchmarkBSort100-4               |         50000      |   24887 ns/op  |
+|BenchmarkBSort1000-4              |          1000      |  1445854 ns/op |
+|BenchmarkBSort10000-4             |             5      | 225405700 ns/op|
+|BenchmarkQSort100-4               |        300000      |   5245 ns/op   |
+|BenchmarkQSort1000-4              |         20000      |   66977 ns/op  |
+|BenchmarkQSort10000-4             |          2000      |   875689 ns/op |
+
 ### Oppgave 3
 Når programmet kjører den evige løkken, brukes 7,2MB minne og 0 CPU. Fordi den evige løkken ikke gjør noen operasjoner, brukes det kun litt minne, men ingen prosesser blir kjørt som bruker noe CPU. 
 
