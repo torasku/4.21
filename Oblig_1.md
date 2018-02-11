@@ -62,7 +62,7 @@ Eks: 3000
 |BenchmarkQSort1000-4              |         20000      |   66977 ns/op  |
 |BenchmarkQSort10000-4             |          2000      |   875689 ns/op |
 
-Utifra Big-O notasjon for bubbleSort og quickSort, skal værste tilfellet være likt for begge algoritmene. Alikevel ser vi at i gjennomsnitt så vil quickSort være noe raskere med en Big-O på O(n log(n)). Hvis vi ser på resultatene fra benchmark testene ovenfor, vil vi få en bekreftelse på at quicksort utfører operasjoner raskere enn bubbleSort. 
+Utifra Big-O notasjon for bubbleSort og quickSort, skal værste tilfellet være likt for begge algoritmene. Alikevel ser vi at i gjennomsnitt så vil quickSort være noe raskere med en Big-O på O(n log(n)). Hvis vi ser på resultatene fra benchmark testene ovenfor, vil vi få en bekreftelse på det.
 
 ### Oppgave 3
 Når programmet kjører den evige løkken, brukes 7,2MB minne og 0 CPU. Fordi den evige løkken ikke gjør noen operasjoner, brukes det kun litt minne, men ingen prosesser blir kjørt som bruker noe CPU. 
