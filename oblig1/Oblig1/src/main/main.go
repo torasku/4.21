@@ -2,62 +2,40 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"os/signal"
+	"syscall"
 )
 
 func main() {
-	list := []int{2, 3, 5, 7, 11, 13}
-	fmt.Println(list[1])
 
-	newList := BubbleSort(list)
-	fmt.Println(newList)
-
-	newList2 := Bubble_sort_modified(list)
-	fmt.Println(newList2)
+	// testkjorer evig lokke med 4 forskjellige terminal kommandoer
+	indefLoop()
 }
 
-func Bubble_sort_modified(list []int) []int {
-	// Skriv din kode her
-	n := len(list)
-	swapped := true
-	for swapped {
-		swapped = false
-		for index := 1; index < n-1; index++ {
-			if list[index-1] > list[index] {
-				temp := list[index-1]
-				list[index-1] = list[index]
-				list[index] = temp
-				swapped = true
-			}
-		}
-	}
-	return list
+func indefLoop() {
 
-	/*n := len(list)
-	var swapped bool
-	for swapped == false {
-		for i := 1; i < n-1; i++ {
-			if list[i-1] > list[i] {
-				temp := list[i-1]
-				list[i-1] = list[i]
-				list[i] = temp
-				swapped = true
-			}
-		}
-	}
-	return list*/
-}
+	//setup for aa sende signal medinger
+	c := make(chan os.Signal, 1)
+	signal.Notify(c,
+		syscall.SIGINT,
+		syscall.SIGQUIT,
+		syscall.SIGHUP,
+		syscall.SIGILL)
 
-func BubbleSort(list []int) []int {
-	// find the length of list n
-	n := len(list)
-	for i := 0; i < n; i++ {
-		for j := 0; j < n-1; j++ {
-			if list[j] > list[j+1] {
-				temp := list[j+1]
-				list[j+1] = list[j]
-				list[j] = temp
-			}
+	for {
+		fmt.Println("Indefinite loop running ...")
+		s := <-c
+		switch s {
+		case syscall.SIGINT:
+			fmt.Println("Process terminated - SIGINT")
+		case syscall.SIGQUIT:
+			fmt.Println("Terminal quit - SIGQUIT")
+		case syscall.SIGHUP:
+			fmt.Println("Hangup - SIGHUP")
+		case syscall.SIGILL:
+			fmt.Println("Illegal instruction - SIGILL")
 		}
+		break
 	}
-	return list
 }

@@ -1,21 +1,23 @@
 package algorithms
 
 // Les https://en.wikipedia.org/wiki/Bubble_sort
-func Bubble_sort_modified(list []int) {
-	// Skriv din kode her
+func Bubble_sort_modified(list []int) []int {
+
 	n := len(list)
 	swapped := true
 	for swapped {
 		swapped = false
-		for index := 1; index < n-1; index++ {
+		for index := 1; index < n; index++ {
 			if list[index-1] > list[index] {
-				temp := list[index-1]
-				list[index-1] = list[index]
-				list[index] = temp
+				temp := list[index]
+				list[index] = list[index-1]
+				list[index-1] = temp
 				swapped = true
 			}
 		}
+		n -= 1
 	}
+	return list
 }
 
 // Implementering av Bubble_sort algoritmen
