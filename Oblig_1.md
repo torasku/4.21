@@ -52,15 +52,15 @@ Eks: 3000
 
 |  Test                            |    Loop runs       |    Result      |
 |:--------------------------------:|:------------------:|:--------------:|
-|BenchmarkBSortModified100-4       |         50000      |   25986 ns/op  |
-|BenchmarkBSortModified1000-4      |         1000       |  1806256 ns/op |
-|BenchmarkBSortModified10000-4     |             5      | 251170600 ns/op|
-|BenchmarkBSort100-4               |         50000      |   24887 ns/op  |
-|BenchmarkBSort1000-4              |          1000      |  1445854 ns/op |
-|BenchmarkBSort10000-4             |             5      | 225405700 ns/op|
-|BenchmarkQSort100-4               |        300000      |   5245 ns/op   |
-|BenchmarkQSort1000-4              |         20000      |   66977 ns/op  |
-|BenchmarkQSort10000-4             |          2000      |   875689 ns/op |
+|BenchmarkBSortModified100-4       |        100000      |   18088 ns/op  |
+|BenchmarkBSortModified1000-4      |         2000       |  1018748 ns/op |
+|BenchmarkBSortModified10000-4     |            10      | 186601570 ns/op|
+|BenchmarkBSort100-4               |        100000      |   24645 ns/op  |
+|BenchmarkBSort1000-4              |          2000      |  1475228 ns/op |
+|BenchmarkBSort10000-4             |            10      | 216988780 ns/op|
+|BenchmarkQSort100-4               |        300000      |   4986 ns/op   |
+|BenchmarkQSort1000-4              |         20000      |   66677 ns/op  |
+|BenchmarkQSort10000-4             |          2000      |   892071 ns/op |
 
 Utifra Big-O notasjon for bubbleSort og quickSort, skal værste tilfellet være likt for begge algoritmene. Alikevel ser vi at i gjennomsnitt så vil quickSort være noe raskere med en Big-O på O(n log(n)). Hvis vi ser på resultatene fra benchmark testene ovenfor, vil vi få en bekreftelse på det.
 
