@@ -12,10 +12,8 @@ func main() {
 
 	fileCount(getArg())
 
-	var arr []int
-	var arr2 []int
-	arr = runeCount(getArg())
-	arr2 = runeCount(getArg())
+	arr := runeCount(getArg())
+	arr2 := runeCount(getArg())
 	var sortedCount []int = Bubble_sort_modified(arr)
 	var slice []int = sortedCount[123:]
 	getASCII(arr2, slice)
