@@ -10,8 +10,8 @@ import (
 
 func main() {
 
+	// oppgave 2
 	fileCount(getArg())
-
 	arr := runeCount(getArg())
 	arr2 := runeCount(getArg())
 	var sortedCount []int = Bubble_sort_modified(arr)

@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-
+	// oppgave 1
 	getFileInfo(getArg())
 
 }
