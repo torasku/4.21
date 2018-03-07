@@ -41,12 +41,11 @@ func getFileInfo(s string) {
 	var modePerm = mode & os.ModePerm
 	var append = mode & os.ModeAppend
 	var device = mode & os.ModeDevice
-	var charDevice = mode & os.ModeCharDevice
-	var unixBlock = mode & os.ModeDevice
 	var symLink = mode & os.ModeSymlink
 
 	fmt.Println("Information about: ", s)
 	fmt.Println("Size: ", bytes, "bytes, ", kb, "kb, ", mg, "mg, ", gb, "gb")
+
 	if mode.IsRegular() {
 		fmt.Println("Regular file")
 	} else {
@@ -72,27 +71,9 @@ func getFileInfo(s string) {
 	} else {
 		fmt.Println("Is not a device file")
 	}
-	if charDevice != 0 {
-		fmt.Println("Is a UNIX char device")
-	} else {
-		fmt.Println("Is not a UNIX char device")
-	}
-	if unixBlock != 0 {
-		fmt.Println("Is a UNIX block device")
-	} else {
-		fmt.Println("Is not a UNIX block device")
-	}
 	if symLink != 0 {
 		fmt.Println("Is a symlink")
 	} else {
 		fmt.Println("Is not a symlink")
 	}
-
-	/*switch mode := fi.Mode(); {
-	  case mode.IsRegular():
-	    fmt.println("Regular file")
-	  case mode.IsDir():
-	    fmt.println()
-	}*/
-
 }

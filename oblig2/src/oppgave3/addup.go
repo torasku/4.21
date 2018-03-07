@@ -7,11 +7,21 @@ import (
 
 func main() {
 
+	// oppgave 3a
 	c := make(chan int)
 	go readInput(c)
 	time.Sleep(5 * 1e9)
 	go addUp(c)
 	time.Sleep(5 * 1e9)
+
+	// oppgave 3b
+
+	writeToFile()
+	time.Sleep(5 * 1e9)
+	readFile("3b.txt")
+	time.Sleep(5 * 1e9)
+	readResult("3b.txt")
+
 }
 
 func readInput(c chan int) {
