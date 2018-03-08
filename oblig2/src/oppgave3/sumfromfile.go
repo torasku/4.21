@@ -8,10 +8,12 @@ import (
 	"strings"
 )
 
-func readFile(path string) {
+func readFile(path string) (s string) {
 
 	var res int
 	var temp string
+	s = ""
+
 	data, err := ioutil.ReadFile(path)
 	checkErr(err)
 
@@ -34,4 +36,6 @@ func readFile(path string) {
 	checkErr(err2)
 
 	err2 = file.Sync()
+
+	return s
 }

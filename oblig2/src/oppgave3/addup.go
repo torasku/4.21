@@ -2,26 +2,48 @@ package main
 
 import (
 	"fmt"
+	"sync"
 	"time"
 )
+
+var waitGroup sync.WaitGroup
+var data chan string
 
 func main() {
 
 	// oppgave 3a
 	c := make(chan int)
 	go readInput(c)
-	time.Sleep(5 * 1e9)
+	time.Sleep(5 * time.Second)
 	go addUp(c)
-	time.Sleep(5 * 1e9)
+	time.Sleep(5 * time.Second)
 
 	// oppgave 3b
+	oppgave3b()
+}
 
-	writeToFile()
-	time.Sleep(5 * 1e9)
-	readFile("3b.txt")
-	time.Sleep(5 * 1e9)
-	readResult("3b.txt")
+func oppgave3b() {
 
+	out1 := make(chan string)
+	out2 := make(chan string)
+	out3 := make(chan int)
+
+	go func() {
+		out1 <- writeToFile()
+	}()
+	time.Sleep(5 * time.Second)
+	go func() {
+		out2 <- readFile("3b.txt")
+	}()
+	time.Sleep(5 * time.Second)
+	go func() {
+		out3 <- readResult("3b.txt")
+	}()
+	print(<-out3)
+}
+
+func print(arg int) {
+	fmt.Println("Result from file: ", arg)
 }
 
 func readInput(c chan int) {

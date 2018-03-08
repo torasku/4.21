@@ -8,10 +8,11 @@ import (
 	"strings"
 )
 
-func writeToFile() {
+func writeToFile() (s string) {
 
 	var n1 int
 	var n2 int
+	s = ""
 
 	fmt.Println("Enter num: ")
 	fmt.Scan(&n1)
@@ -28,6 +29,7 @@ func writeToFile() {
 	checkErr(err)
 
 	err = file.Sync()
+	return s
 }
 
 func checkErr(e error) {
@@ -36,7 +38,8 @@ func checkErr(e error) {
 	}
 }
 
-func readResult(path string) {
+func readResult(path string) (s int) {
+
 	data, err := ioutil.ReadFile(path)
 	checkErr(err)
 
@@ -46,6 +49,6 @@ func readResult(path string) {
 
 	res, err := strconv.Atoi(temp)
 	checkErr(err)
-
-	fmt.Println("Result from file: ", res)
+	s = res
+	return s
 }

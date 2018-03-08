@@ -68,6 +68,7 @@ func runeCount(s string) []int {
 	return countArr
 }
 
+// used for testing
 func checkChar() {
 	data, err := ioutil.ReadFile("text.txt")
 	if err != nil {
