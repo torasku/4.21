@@ -17,6 +17,10 @@ func readFile(path string) (s string) {
 	data, err := ioutil.ReadFile(path)
 	checkErr(err)
 
+	go func() {
+		checkSigint()
+	}()
+
 	tempData := string(data)
 	stringData := strings.Split(tempData, "\n")
 	stringData = stringData[:len(stringData)-1]

@@ -14,6 +14,10 @@ func writeToFile() (s string) {
 	var n2 int
 	s = ""
 
+	go func() {
+		checkSigint()
+	}()
+
 	fmt.Println("Enter num: ")
 	fmt.Scan(&n1)
 	fmt.Println("Enter num: ")
