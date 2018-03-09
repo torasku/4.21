@@ -10,13 +10,10 @@ import (
 
 func writeToFile() (s string) {
 
+	// scanner input, lager fil og skriver til fil
 	var n1 int
 	var n2 int
 	s = ""
-
-	go func() {
-		checkSigint()
-	}()
 
 	fmt.Println("Enter num: ")
 	fmt.Scan(&n1)
@@ -44,12 +41,12 @@ func checkErr(e error) {
 
 func readResult(path string) (s int) {
 
+	// leser fra fil, lagrer siste tall i resultat og konverterer til int
 	data, err := ioutil.ReadFile(path)
 	checkErr(err)
 
-	tempData := string(data)
-	stringData := strings.Split(tempData, "\n")
-	temp := stringData[len(stringData)-2]
+	stringArr := strings.Split(string(data), "\n")
+	temp := stringArr[len(stringArr)-2]
 
 	res, err := strconv.Atoi(temp)
 	checkErr(err)

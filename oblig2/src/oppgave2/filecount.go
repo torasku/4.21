@@ -14,6 +14,11 @@ func main() {
 	fileCount(getArg())
 	arr := runeCount(getArg())
 	arr2 := runeCount(getArg())
+
+	// manuell run --> kommenter ut neste tre linjene under
+	/*fileCount("text.txt")
+	arr := runeCount("text.txt")
+	arr2 := runeCount("text.txt")*/
 	var sortedCount []int = Bubble_sort_modified(arr)
 	var slice []int = sortedCount[123:]
 	getASCII(arr2, slice)
@@ -49,6 +54,8 @@ func lineCount(s string) int {
 }
 
 func runeCount(s string) []int {
+	// leser fil, teller opp antall forekomster for hver verdi
+	// og legger dem til i array og returnerer array
 	var countArr []int
 	var count int
 	data, err := ioutil.ReadFile(s)
@@ -80,7 +87,8 @@ func checkChar() {
 }
 
 func Bubble_sort_modified(list []int) []int {
-
+	// bruker bubleSort til aa sortere array med verdier slik
+	// at de siste 5 slots i array er topp 5
 	n := len(list)
 	swapped := true
 	for swapped {
@@ -99,6 +107,9 @@ func Bubble_sort_modified(list []int) []int {
 }
 
 func getASCII(data []int, sortedCount []int) {
+	// finner hexa verdi ved aa hente indeks fra hovedarray der
+	// topp 5 verdiene er like (indeks brukes til aa vite hvilke ASCII verdi
+	// som er knyttet til hver verdi)
 	var hexa []int
 	for i := 0; i < 5; i++ {
 		for j := 0; j < 128; j++ {

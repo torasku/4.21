@@ -4,13 +4,12 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
-	"sync"
 	"syscall"
 	"time"
 )
 
-var waitGroup sync.WaitGroup
-var data chan string
+//var waitGroup sync.WaitGroup
+//var data chan string
 
 func main() {
 
