@@ -2,18 +2,23 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"html/template"
 	"io/ioutil"
 	"log"
 	"net/http"
-	"reflect"
 	"time"
+
+	"github.com/gorilla/mux"
 )
 
 func main() {
 
-	http.HandleFunc("/", response)
+	r := mux.NewRouter()
+
+	r.HandleFunc("/", response1)
+	r.HandleFunc("/2", response2)
+
+	http.Handle("/", r)
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		panic(err)
 	}
@@ -26,12 +31,37 @@ type Entry struct {
 	} `json:"entries"`
 }
 
-type PageVariables struct {
+type PageVar1 struct {
 	Name   string
 	Number string
 }
 
-func response(w http.ResponseWriter, r *http.Request) {
+type Station struct {
+	Entries []struct {
+		Latitude  string `json:"latitude"`
+		Name      string `json:"navn"`
+		Plastic   string `json:"plast"`
+		GlasMetal string `json:"glass_metall"`
+		Shoe      string `json:"tekstil_sko,omitempty"`
+		Longitude string `json:"longitude"`
+	} `json:"entries"`
+	Page  int `json:"page"`
+	Pages int `json:"pages"`
+	Posts int `json:"posts"`
+}
+
+type PageVar2 struct {
+	Latitude  string
+	Name      string
+	Plastic   string
+	GlasMetal string
+	Shoe      string
+	Longitude string
+}
+
+var station Station
+
+func response1(w http.ResponseWriter, r *http.Request) {
 
 	url := "https://hotell.difi.no/api/json/difi/geo/fylke"
 
@@ -56,7 +86,6 @@ func response(w http.ResponseWriter, r *http.Request) {
 
 	county := Entry{}
 	jsonErr := json.Unmarshal(body, &county)
-
 	if jsonErr != nil {
 		log.Fatal(jsonErr)
 	}
@@ -67,7 +96,7 @@ func response(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for _, v := range county.Entries {
-		HomePageVars := PageVariables{
+		HomePageVars := PageVar1{
 			Name:   v.Name,
 			Number: v.Number,
 		}
@@ -76,22 +105,29 @@ func response(w http.ResponseWriter, r *http.Request) {
 			log.Fatal(err)
 		}
 	}
+}
 
-	for _, v := range county.Entries {
-		fmt.Println("Name: ", v.Name)
-		fmt.Println("Name type = ", reflect.TypeOf(v.Name))
+func response2(w http.ResponseWriter, r *http.Request) {
 
-		fmt.Println("Number: ", v.Number)
+	url := "https://hotell.difi.no/api/json/stavanger/miljostasjoner"
+
+	result, _ := http.Get(url)
+
+	body, _ := ioutil.ReadAll(result.Body)
+
+	jsonErr := json.Unmarshal(body, &station)
+	if jsonErr != nil {
+		log.Fatal(jsonErr)
 	}
 
-	/*county := Entries{}
-	jsonErr := json.Unmarshal(body, &county)*/
-
-	/*output, err := json.Marshal(county)
+	t, err := template.ParseFiles("stations.html")
 	if err != nil {
-		http.Error(w, err.Error(), 500)
-		return
+		log.Print(err)
 	}
-	w.Write(output)*/
+
+	err = t.Execute(w, station)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 }

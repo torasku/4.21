@@ -10,9 +10,14 @@
           <div class="col-md-4"></div>
           <div class="col-md-4" align="center">
             <p>
-              Name: {{.Name}}
-              ||
-              Number: {{.Number}}
+              {{range $.Entries}}
+                Latitude: {{.Latitude}}
+                Name: {{.Name}}
+                Plastic: {{.Plastic}}
+                GlasMetal: {{.GlasMetal}}
+                Shoe: {{.Shoe}}
+                Longitude: {{.Longitude}}
+              {{end}}
             </p>
             <!--<div class="table">
               <table class="table table-striped">
