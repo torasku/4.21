@@ -7,39 +7,31 @@
     <body>
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-2"></div>
-          <div class="col-md-8" align="center">
+          <div class="col-md-3"></div>
+          <div class="col-md-6" align="center">
             <div class="container">
-              <h2>Environmental stations in Stavanger</h2>
-              <p>Data collected from <b>https://hotell.difi.no/api/json/stavanger/miljostasjoner</b></p>
+              <h2>Counties in Norway</h2>
+              <p>Data collected from <b>https://hotell.difi.no/api/json/difi/geo/fylke</b></p>
               <br>
               <table class="table table-striped">
                 <thead>
                   <tr>
                     <th>Name</th>
-                    <th>Plastic</th>
-                    <th>GlasMetal</th>
-                    <th>Shoe</th>
-                    <th>Longitude</th>
-                    <th>Latitude</th>
+                    <th>Number</th>
                   </tr>
                 </thead>
                 <tbody>
                   {{range $.Entries}}
                     <tr>
                       <th>{{.Name}}</th>
-                      <th>{{.Plastic}}</th>
-                      <th>{{.GlasMetal}}</th>
-                      <th>{{.Shoe}}</th>
-                      <th>{{.Longitude}}</th>
-                      <th>{{.Latitude}}</th>
+                      <th>{{.Number}}</th>
                     </tr>
                   {{end}}
                 </tbody>
               </table>
             </div>
           </div>
-          <div class="col-md-2"></div>
+          <div class="col-md-3"></div>
         </div>
       </div>
     </body>

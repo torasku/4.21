@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"time"
 
 	"github.com/gorilla/mux"
 )
@@ -24,16 +23,13 @@ func main() {
 	}
 }
 
-type Entry struct {
+// lager structs for aa holde paa JSON data
+
+type County struct {
 	Entries []struct {
 		Name   string `json:"navn"`
 		Number string `json:"nummer"`
 	} `json:"entries"`
-}
-
-type PageVar1 struct {
-	Name   string
-	Number string
 }
 
 type Station struct {
@@ -50,60 +46,30 @@ type Station struct {
 	Posts int `json:"posts"`
 }
 
-type PageVar2 struct {
-	Latitude  string
-	Name      string
-	Plastic   string
-	GlasMetal string
-	Shoe      string
-	Longitude string
-}
-
 var station Station
+var county County
 
 func response1(w http.ResponseWriter, r *http.Request) {
 
 	url := "https://hotell.difi.no/api/json/difi/geo/fylke"
 
-	client := http.Client{
-		Timeout: time.Second * 2,
-	}
+	result, _ := http.Get(url)
 
-	request, err := http.NewRequest(http.MethodGet, url, nil)
-	if err != nil {
-		log.Fatal(err)
-	}
+	body, _ := ioutil.ReadAll(result.Body)
 
-	result, getErr := client.Do(request)
-	if getErr != nil {
-		log.Fatal(getErr)
-	}
-
-	body, readErr := ioutil.ReadAll(result.Body)
-	if readErr != nil {
-		log.Fatal(readErr)
-	}
-
-	county := Entry{}
 	jsonErr := json.Unmarshal(body, &county)
 	if jsonErr != nil {
 		log.Fatal(jsonErr)
 	}
 
-	t, err := template.ParseFiles("index.html") //parse index.html
+	t, err := template.ParseFiles("counties.html")
 	if err != nil {
 		log.Print(err)
 	}
 
-	for _, v := range county.Entries {
-		HomePageVars := PageVar1{
-			Name:   v.Name,
-			Number: v.Number,
-		}
-		err = t.Execute(w, HomePageVars) //fyrer av template og sender ved HomePageVars
-		if err != nil {
-			log.Fatal(err)
-		}
+	err = t.Execute(w, county)
+	if err != nil {
+		log.Fatal(err)
 	}
 }
 
