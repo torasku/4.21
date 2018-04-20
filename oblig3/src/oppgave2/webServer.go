@@ -14,7 +14,7 @@ func main() {
 
 	r := mux.NewRouter()
 
-	r.HandleFunc("/", response1)
+	r.HandleFunc("/1", response1)
 	r.HandleFunc("/2", response2)
 
 	http.Handle("/", r)
