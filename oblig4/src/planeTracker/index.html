@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Oblig3 - oppgave 2</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>PlaneTracker</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script
+      src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"
+      integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+      crossorigin="anonymous">
+    </script>
+
   </head>
   <body>
     <div class="container-fluid">
@@ -11,29 +19,26 @@
         <div class="col-md-2"></div>
         <div class="col-md-8" align="center">
           <div class="container">
-            <h2>Environmental stations in Stavanger</h2>
-            <p>Data collected from <b>https://hotell.difi.no/api/json/stavanger/miljostasjoner</b></p>
+            <h2>Tori's LIVE planeTracker</h2>
             <br>
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Plastic</th>
-                  <th>GlasMetal</th>
-                  <th>Shoe</th>
-                  <th>Longitude</th>
-                  <th>Latitude</th>
+                  <th>Registration number</th>
+                  <th>Call Sign</th>
+                  <th>Speed</th>
+                  <th>Departure</th>
+                  <th>Arrival</th>
                 </tr>
               </thead>
               <tbody>
-                {{range $.Entries}}
+                {{range $.AcList}}
                   <tr>
-                    <th>{{.Name}}</th>
-                    <th>{{.Plastic}}</th>
-                    <th>{{.GlasMetal}}</th>
-                    <th>{{.Shoe}}</th>
-                    <th>{{.Longitude}}</th>
-                    <th>{{.Latitude}}</th>
+                    <th>{{.Reg}}</th>
+                    <th>{{.Call}}</th>
+                    <th>{{.Spd}}</th>
+                    <th>{{.From}}</th>
+                    <th>{{.To}}</th>
                   </tr>
                 {{end}}
               </tbody>
