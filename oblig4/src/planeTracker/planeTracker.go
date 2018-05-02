@@ -11,6 +11,9 @@ import (
 func main() {
 
 	http.HandleFunc("/planeTracker", response)
+	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
+	http.Handle("/js/", http.StripPrefix("/js/", http.FileServer(http.Dir("js"))))
+
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		panic(err)
 	}
@@ -100,6 +103,7 @@ var planes Plane
 
 func response(w http.ResponseWriter, r *http.Request) {
 
+	//	url := "http://public-api.adsbexchange.com/VirtualRadar/AircraftList.json?lat=33.433638&lng=-112.008113&fDstL=0&fDstU=100"
 	url := "https://public-api.adsbexchange.com/VirtualRadar/AircraftList.json?lat=58.14671&lng=7.9956&fDstL=0&fDstU=100"
 	result, _ := http.Get(url)
 
