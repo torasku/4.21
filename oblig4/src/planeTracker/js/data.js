@@ -29,7 +29,11 @@ locationBtn.onclick = function() {
   alert("Coming soon!");
 }
 
-function getPlaneInfo(plane){
+function getPlaneInfo(call){
+
+  alert(JSON.stringify(call));
+
+  var callSign = JSON.stringify(call);
 
   $("#infoTable").empty();
   infoModal.style.display = "block";
@@ -40,7 +44,7 @@ function getPlaneInfo(plane){
     "<th>Engine type</th></tr></thead>");
 
   var testData = {
-    "reg": "QWE3",
+    "reg": callSign,
     "model": "Dash 8 Q400",
     "engine": "Turbo prop"
   }
