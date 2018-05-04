@@ -29,34 +29,62 @@ locationBtn.onclick = function() {
   alert("Coming soon!");
 }
 
-function getPlaneInfo(call){
+function getPlaneInfo(call, model, engType){
 
-  alert(JSON.stringify(call));
-
-  var callSign = JSON.stringify(call);
+  var call = JSON.stringify(call);
+  call = trimString(call);
+  var model = JSON.stringify(model);
+  model = trimString(model);
+  var engType = JSON.stringify(engType);
+  engType = checkEngineType(trimString(engType));
 
   $("#infoTable").empty();
   infoModal.style.display = "block";
 
   $("#infoTable").append("<thead class='thead-dark'>" + "<tr>" +
-    "<th>Registration number</th>" +
+    "<th>Callsign</th>" +
     "<th>Plane model</th>" +
     "<th>Engine type</th></tr></thead>");
 
-  var testData = {
-    "reg": callSign,
-    "model": "Dash 8 Q400",
-    "engine": "Turbo prop"
+  var planeData = {
+    "reg": call,
+    "model": model,
+    "engine": engType
   }
 
   $("#infoTable").append("<tr></tr>");
 
-  Object.values(testData).forEach(function(value){
+  Object.values(planeData).forEach(function(value){
     $("#infoTable").append("<th>" + value + "</th>");
   });
-
 }
 
 closeInfo.onclick = function() {
   infoModal.style.display = "none";
+}
+
+function trimString(s){
+  var st = s.replace(/"/g, "");
+  return st;
+}
+
+function checkEngineType(e){
+  var engType;
+
+  if(e == 0){
+    engType = "None";
+  }
+  else if(e == 1){
+    engType = "Piston";
+  }
+  else if(e == 2){
+    engType = "Turbo";
+  }
+  else if(e == 3){
+    engType = "Jet";
+  }
+  else if(e == 4){
+    engType = "Electric";
+  }
+  return engType;
 }

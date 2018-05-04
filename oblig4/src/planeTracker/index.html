@@ -36,7 +36,7 @@
               </thead>
               <tbody>
                 {{range $.AcList}}
-                  <tr onclick = "getPlaneInfo({{.Call}})">
+                  <tr onclick = "getPlaneInfo({{.Call}}, {{.Mdl}}, {{.EngType}})">
                     <th>{{.Reg}}</th>
                     <th>{{.Call}}</th>
                     <th>{{.Spd}}</th>
@@ -92,7 +92,7 @@
 
     <script src="js/map.js"></script>
     <script src="js/data.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbqtH5BuagfSbbrkDp4WMcvg-CyWlXf-A&callback=initMap" async defer></script>
-
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbqtH5BuagfSbbrkDp4WMcvg-CyWlXf-A&callback=initMap"></script>
+    <!-- async defer -->
   </body>
 </html>
