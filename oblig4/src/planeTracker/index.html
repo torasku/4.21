@@ -4,68 +4,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>PlaneTracker</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link href="assets/main.css" rel="stylesheet" type="text/css">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 
   </head>
   <body>
     <div class="jumbotron text-center">
-      <h1>PlaneTracker LIVE</h1>
-      <p>Get instant information about nearby planes!</p>
+      <h1>planeTracker</h1>
+      <p>Get detailed information about planes all over the world!</p>
     </div>
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8" align="center">
-          <div class="container">
-            <button class="btn btn-dark" id="updateBtn">Update</button>
-            <button class="btn btn-dark" id="searchBtn">Search</button>
-            <button class="btn btn-dark" id="locationBtn">Location</button>
-            <br><br>
-            <table class="table table-hover" id="planeTable">
-              <thead>
-                <tr>
-                  <th>Registration number</th>
-                  <th>Call Sign</th>
-                  <th>Speed</th>
-                  <th>Departure</th>
-                  <th>Arrival</th>
-                </tr>
-              </thead>
-              <tbody>
-                {{range $.AcList}}
-                  <tr onclick = "getPlaneInfo({{.Call}}, {{.Mdl}}, {{.EngType}})">
-                    <th>{{.Reg}}</th>
-                    <th>{{.Call}}</th>
-                    <th>{{.Spd}}</th>
-                    <th>{{.From}}</th>
-                    <th>{{.To}}</th>
-                  </tr>
-                {{end}}
-              </tbody>
-            </table>
-          </div>
+          <button class="btn btn-dark" id="updateBtn">Update</button>
+          <button class="btn btn-dark" id="mapBtn">Search</button>
+          <!--<button class="btn btn-dark" id="locationBtn">Location</button>-->
+          <br><br>
+          <div id="currentLocation"></div>
         </div>
         <div class="col-md-2"></div>
       </div>
-    </div>
-    <div id="searchModal" class="modal">
-      <div class="modal-content" style="overflow-x: hidden" style="overflow-y: scroll">
-        <span class="close" id="closeSearch">&times;</span>
-        <div class="container-fluid" id="searchFields">
-          <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6" id="col_info" style="align-content: center">
-              <p>Please enter the callsign of the plane you want to find!</p>
-              <div class="form-group">
-                <input type="text" class="form-control" id="callSign" placeholder="Callsign...">
-              </div>
-              <button class="btn btn-dark" id="searchFinishhed">Search</button>
-            </div>
-          <div class="col-md-3"></div>
+      <div class="row">
+       <div class="col-md-2"></div>
+        <div class="col-md-8" align="center">
+          <br><br>
+          <table class="table table-hover" id="planeTable">
+            <thead>
+              <tr>
+                <th>Registration number</th>
+                <th>Departure</th>
+                <th>Arrival</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{range $.AcList}}
+                <tr onclick = "getPlaneInfo({{.Call}}, {{.Mdl}}, {{.Year}}, {{.EngType}}, {{.Spd}}, {{.Alt}})">
+                  <td>{{.Reg}}</td>
+                  <td>{{.From}}</td>
+                  <td>{{.To}}</td>
+                </tr>
+              {{end}}
+            </tbody>
+          </table>
         </div>
+        <div class="col-md-2"></div>
+    </div>
+    <div id="mapModal" class="modal">
+      <div class="modal-content" id="mapContent"style="overflow-x: hidden" style="overflow-y: scroll">
+        <span class="close" id="closeMap">&times;</span>
+        <div class="container-fluid" id="mapContainer">
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10" style="text-align: center" >
+              <input type="text" name="search" id="searchInput">
+              <button class="btn btn-dark" id="searchBtn" onclick="getAddress()">Search</button>
+              <button class="btn btn-dark" id="subBtn" onclick="submit()">Find planes</button>
+              <form action="/planeTracker" method="post" id="coordinates-form">
+                <input type="hidden" name="coordinates" id="coordinates">
+              </form>
+              <br>
+            </div>
+            <div class="col-md-1"></div>
+          </div>
+          <div class="row">
+            <div id="googleMap" style="width:100%;height:300px;"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -76,7 +85,7 @@
           <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-10" id="col_info" style="align-content: center">
-              <h3>Information about selected plane</h3><br>
+              <h2 style="text-align: center">Detailed information</h2><br>
               <table class="table table-striped" id="infoTable">
                 <tbody>
                 </tbody>
@@ -87,12 +96,50 @@
         </div>
       </div>
     </div>
-    <div id="map"> </div>
-
-
+    <div id="locationModal" class="modal">
+      <div class="modal-content" id="locationContent" style="overflow-x: hidden" style="overflow-y: scroll">
+        <span class="close" id="closeLocation">&times;</span>
+        <div class="container-fluid" >
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10" id="col_info" style="align-content: center">
+              <h2 style="text-align: center">Choose location</h2>
+              <p style="text-align: center">We will find planes within 100 km from the chosen location.</p>
+              <br>
+            </div>
+            <div class="col-md-1"></div>
+          </div>
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10" style="text-align: center" >
+              <form action="/planeTracker" method="post">
+                <input type="text" name="location" id="locationInput">
+                <button class="btn btn-dark" id="searchLocBtn" onclick="checkLocation()">Search</button>
+              </form>
+              <br><br>
+              <p>Please note that the Beta version only includes the major cities in Norway, e.g. Oslo, Bergen or Trondheim.
+            </div>
+            <div class="col-md-1"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="errorModal" class="modal">
+      <div class="modal-content" id="errorContent" style="overflow-x: hidden" style="overflow-y: scroll">
+        <span class="close" id="closeError">&times;</span>
+        <div class="container-fluid" id="errorContainer">
+          <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6" id="errorCol" style="align-content: center">
+              <p></p>
+            </div>
+          <div class="col-md-3"></div>
+        </div>
+        </div>
+      </div>
+    </div>
     <script src="js/map.js"></script>
     <script src="js/data.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbqtH5BuagfSbbrkDp4WMcvg-CyWlXf-A&callback=initMap"></script>
-    <!-- async defer -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDn-3NqF6lSAdpoK9ai6ask_82Ybglxc2o&callback=initMap"></script>
   </body>
 </html>

@@ -29,13 +29,22 @@ html, body {
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-#infoContent {
+#infoContent, #locationContent, #errorContent {
   background-color: #fefefe;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
   width: 50%;
   height: 70%;
+}
+
+#mapContent {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%;
+  height: 90%;
 }
 
 /* Modal Content */
@@ -65,4 +74,9 @@ html, body {
 #searchFields.form-group {
     margin-top: 1px;
     margin-bottom: 1px;
+}
+
+.btn {
+  margin-right: 20px;
+  width: 150px;
 }

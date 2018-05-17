@@ -2,21 +2,32 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"html/template"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 )
 
 func main() {
 
 	http.HandleFunc("/planeTracker", response)
+
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
 	http.Handle("/js/", http.StripPrefix("/js/", http.FileServer(http.Dir("js"))))
 
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		panic(err)
 	}
+}
+
+type Long struct {
+	Long float64
+}
+
+type Lat struct {
+	Lat float64
 }
 
 type Plane struct {
@@ -100,19 +111,21 @@ type Plane struct {
 }
 
 var planes Plane
+var apiBase = "http://public-api.adsbexchange.com/VirtualRadar/AircraftList.json?"
+var radius = "&fDstL=0&fDstU=100"
 
 func response(w http.ResponseWriter, r *http.Request) {
 
-	//	url := "http://public-api.adsbexchange.com/VirtualRadar/AircraftList.json?lat=33.433638&lng=-112.008113&fDstL=0&fDstU=100"
-	url := "https://public-api.adsbexchange.com/VirtualRadar/AircraftList.json?lat=58.14671&lng=7.9956&fDstL=0&fDstU=100"
-	result, _ := http.Get(url)
-
-	body, _ := ioutil.ReadAll(result.Body)
-
-	jsonErr := json.Unmarshal(body, &planes)
-	if jsonErr != nil {
-		log.Fatal(jsonErr)
+	var url string
+	r.ParseForm()
+	coordinates := r.FormValue("coordinates")
+	if len(coordinates) == 0 {
+		fmt.Println("her")
+		url = "http://public-api.adsbexchange.com/VirtualRadar/AircraftList.json?lat=58.159912&lng=8.018206&fDstL=0&fDstU=100"
+	} else {
+		url = getApiUrl(coordinates)
 	}
+	getData(url)
 
 	t, err := template.ParseFiles("index.html")
 	if err != nil {
@@ -123,4 +136,53 @@ func response(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func getData(url string) {
+	result, _ := http.Get(url)
+	body, _ := ioutil.ReadAll(result.Body)
+
+	jsonErr := json.Unmarshal(body, &planes)
+	if jsonErr != nil {
+		log.Fatal(jsonErr)
+	}
+}
+
+func getLat(coordinates string) string {
+	trim := strings.Trim(coordinates, "()")
+	split := strings.Split(trim, ",")
+	lat := split[0]
+
+	return lat
+}
+
+func getLong(coordinates string) string {
+	trim := strings.Trim(coordinates, "()")
+	split := strings.Split(trim, ",")
+	long := split[1]
+	long = strings.TrimSpace(long)
+
+	return long
+}
+
+func joinUrl(lat string, lng string, r string) string {
+	slice := []string{apiBase, lat}
+	url := strings.Join(slice, "lat=")
+
+	slice2 := []string{url, lng}
+	url = strings.Join(slice2, "&lng=")
+
+	slice3 := []string{url, r}
+	url = strings.Join(slice3, "")
+
+	return url
+}
+
+func getApiUrl(coordinates string) string {
+	lat := getLat(coordinates)
+	long := getLong(coordinates)
+
+	apiUrl := joinUrl(lat, long, radius)
+
+	return apiUrl
 }

@@ -1,31 +1,42 @@
 var map;
+var geocoder;
 
 function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 6,
-    center: {lat: 59.188161, lng: 9.612769}
+  geocoder = new google.maps.Geocoder();
+  var mapProp = {
+      center:new google.maps.LatLng(59.188161, 9.612769),
+      zoom:6,
+  };
+  map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+  setMarkers();
+}
+
+function getAddress() {
+  var address = document.getElementById("searchInput").value;
+  //$("#currentLocation").append(address);
+  geocoder.geocode({'address': address}, function(result, status) {
+    var coordinates = result[0].geometry.location;
+    map.setCenter(coordinates);
+    var marker = new google.maps.Marker ({
+       map: map,
+       position: result[0].geometry.location
+     });
   });
 }
 
-/*function createMarker(float lat, float long){
-  const marker = new google.maps.Marker({
-    map: map,
-    draggable: true,
-    animation: google.maps.Animation.DROP,
-    position: {lat: lat, lng: long}
+function submit() {
+  var address = document.getElementById("searchInput").value;
+  geocoder.geocode({'address': address}, function(result, status) {
+    var coordinates = result[0].geometry.location;
+    document.getElementById("coordinates").setAttribute("value", coordinates);
+    document.getElementById("coordinates-form").submit();
   });
 }
 
-function addListener(marker){
-  marker.addListener('click', function(){
-    displayData(getPlaneId(marker));
-  });
-}
-
-function displayData() {
-
-}
-
-function getPlaneId() {
-
+/*function setMarkers() {
+    var latlng = {lat: {{.Lat}}, lng: {{.Long}}};
+    var marker = new google.maps.Marker ({
+      map: map,
+      position: latlng
+    });
 }*/
