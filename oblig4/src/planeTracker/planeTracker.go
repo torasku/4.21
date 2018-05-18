@@ -109,6 +109,7 @@ func response(w http.ResponseWriter, r *http.Request) {
 	var url string
 	r.ParseForm()
 	coordinates := r.FormValue("coordinates")
+
 	if len(coordinates) == 0 {
 		url = "http://public-api.adsbexchange.com/VirtualRadar/AircraftList.json?lat=58.159912&lng=8.018206&fDstL=0&fDstU=100"
 	} else {

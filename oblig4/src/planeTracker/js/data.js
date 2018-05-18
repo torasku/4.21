@@ -1,7 +1,6 @@
 // select all buttons and modals
 var updateBtn = document.getElementById('updateBtn');
 var mapBtn = document.getElementById("mapBtn");
-
 var mapModal = document.getElementById('mapModal');
 var closeMap = document.getElementById("closeMap");
 var infoModal = document.getElementById('infoModal');
