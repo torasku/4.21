@@ -23,8 +23,7 @@
         <div class="col-md-2"></div>
         <div class="col-md-8" align="center">
           <button class="btn btn-dark" id="updateBtn">Update</button>
-          <button class="btn btn-dark" id="mapBtn">Search</button>
-          <!--<button class="btn btn-dark" id="locationBtn">Location</button>-->
+          <button class="btn btn-dark" id="mapBtn" onclick="reset()">Search location</button>
           <br><br>
           <div id="currentLocation"></div>
         </div>
@@ -62,12 +61,19 @@
           <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-10" style="text-align: center" >
-              <input type="text" name="search" id="searchInput">
+              <input type="text" name="search" id="searchInput" placeholder="e.g. Manchester">
               <button class="btn btn-dark" id="searchBtn" onclick="getAddress()">Search</button>
-              <button class="btn btn-dark" id="subBtn" onclick="submit()">Find planes</button>
+              <button class="btn btn-success" id="subBtn" onclick="submit()">Go to planes</button>
               <form action="/planeTracker" method="post" id="coordinates-form">
                 <input type="hidden" name="coordinates" id="coordinates">
               </form>
+            </div>
+            <div class="col-md-1"></div>
+          </div>
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10" style="text-align: center" >
+              <div id="totalPlanes"></div>
               <br>
             </div>
             <div class="col-md-1"></div>
@@ -96,48 +102,7 @@
         </div>
       </div>
     </div>
-    <div id="locationModal" class="modal">
-      <div class="modal-content" id="locationContent" style="overflow-x: hidden" style="overflow-y: scroll">
-        <span class="close" id="closeLocation">&times;</span>
-        <div class="container-fluid" >
-          <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-10" id="col_info" style="align-content: center">
-              <h2 style="text-align: center">Choose location</h2>
-              <p style="text-align: center">We will find planes within 100 km from the chosen location.</p>
-              <br>
-            </div>
-            <div class="col-md-1"></div>
-          </div>
-          <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-10" style="text-align: center" >
-              <form action="/planeTracker" method="post">
-                <input type="text" name="location" id="locationInput">
-                <button class="btn btn-dark" id="searchLocBtn" onclick="checkLocation()">Search</button>
-              </form>
-              <br><br>
-              <p>Please note that the Beta version only includes the major cities in Norway, e.g. Oslo, Bergen or Trondheim.
-            </div>
-            <div class="col-md-1"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="errorModal" class="modal">
-      <div class="modal-content" id="errorContent" style="overflow-x: hidden" style="overflow-y: scroll">
-        <span class="close" id="closeError">&times;</span>
-        <div class="container-fluid" id="errorContainer">
-          <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6" id="errorCol" style="align-content: center">
-              <p></p>
-            </div>
-          <div class="col-md-3"></div>
-        </div>
-        </div>
-      </div>
-    </div>
+
     <script src="js/map.js"></script>
     <script src="js/data.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDn-3NqF6lSAdpoK9ai6ask_82Ybglxc2o&callback=initMap"></script>

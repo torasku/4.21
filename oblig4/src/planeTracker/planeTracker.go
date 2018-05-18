@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"html/template"
 	"io/ioutil"
 	"log"
@@ -20,14 +19,6 @@ func main() {
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		panic(err)
 	}
-}
-
-type Long struct {
-	Long float64
-}
-
-type Lat struct {
-	Lat float64
 }
 
 type Plane struct {
@@ -115,12 +106,10 @@ var apiBase = "http://public-api.adsbexchange.com/VirtualRadar/AircraftList.json
 var radius = "&fDstL=0&fDstU=100"
 
 func response(w http.ResponseWriter, r *http.Request) {
-
 	var url string
 	r.ParseForm()
 	coordinates := r.FormValue("coordinates")
 	if len(coordinates) == 0 {
-		fmt.Println("her")
 		url = "http://public-api.adsbexchange.com/VirtualRadar/AircraftList.json?lat=58.159912&lng=8.018206&fDstL=0&fDstU=100"
 	} else {
 		url = getApiUrl(coordinates)

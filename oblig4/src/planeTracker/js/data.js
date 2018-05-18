@@ -1,20 +1,13 @@
-// select buttons and modals
+// select all buttons and modals
 var updateBtn = document.getElementById('updateBtn');
 var mapBtn = document.getElementById("mapBtn");
-var locationBtn = document.getElementById("locationBtn");
 
 var mapModal = document.getElementById('mapModal');
 var closeMap = document.getElementById("closeMap");
 var infoModal = document.getElementById('infoModal');
 var closeInfo = document.getElementById('closeInfo');
-var locationModal = document.getElementById('locationModal');
-var closeLocation = document.getElementById('closeLocation');
-var errorModal = document.getElementById('errorModal');
-var closeError = document.getElementById('closeError');
 
-var currentLocation = $("#locationInput").val();
-
-// handling modals
+// handling all modals
 updateBtn.onclick = function(){
   location.reload();
 }
@@ -31,21 +24,8 @@ closeInfo.onclick = function() {
   infoModal.style.display = "none";
 }
 
-locationBtn.onclick = function() {
-  locationModal.style.display = "block";
-}
-
-closeLocation.onclick = function() {
-  locationModal.style.display = "none";
-}
-
-closeError.onclick = function() {
-    errorModal.style.display = "none";
-}
-
-// function that retrieves detailed information about selected planes from the table
+// function that retrieves detailed information about selected planes from the main table
 function getPlaneInfo(call, model, year, engType, speed, alt){
-
   var call = JSON.stringify(call);
   call = trimString(call);
   var model = JSON.stringify(model);
@@ -80,7 +60,7 @@ function getPlaneInfo(call, model, year, engType, speed, alt){
 
   $("#infoTable").append("<tr></tr>");
 
-  // looping all values in object, append to the table
+  // looping all values in object, appends to the info table
   Object.values(planeData).forEach(function(value){
     $("#infoTable").append("<td>" + value + "</td>");
   });
@@ -110,34 +90,4 @@ function checkEngineType(e){
     engType = "Electric";
   }
   return engType;
-}
-
-// function that checks if input location exists in the Beta location array
-function checkLocation(){
-
-  var locationExists = Boolean(false);
-  var location = $("#locationInput").val();
-  $("#currentLocation").append("<h4>Showing result from: " + String(location) + "</h4");
-  var locations = [
-    "Bergen",
-    "Oslo",
-    "Kristiansand",
-    "Tromsø",
-    "Trondheim"
-  ]
-
-  for(let i = 0; i < locations.length; i++){
-    if(locations[i] == location ){
-      locationExists = true
-      break;
-    }
-  }
-  if(locationExists == false){
-    // not working.... :(
-    document.getElementById("searchLocBtn").addEventListener("click", function(event){
-      event.preventDefault();
-    });
-    alert("Sorry, could not locate area. Please try again!");
-    //errorModal.style.display = "block";
-  }
 }
