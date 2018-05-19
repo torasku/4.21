@@ -21,6 +21,7 @@ function getAddress() {
   geocoder.geocode({'address': address}, function(result, status) {
     var coordinates = result[0].geometry.location;
     map.setCenter(coordinates);
+    // draws a red circle for the selected area
     circle = new google.maps.Circle({
             strokeColor: '#FF0000',
             strokeOpacity: 0.8,
