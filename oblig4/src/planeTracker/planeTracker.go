@@ -2,14 +2,20 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"html/template"
 	"io/ioutil"
-	"log"
 	"net/http"
+	"os"
+	"os/signal"
 	"strings"
+	"syscall"
+	"time"
 )
 
 func main() {
+
+	checkSig()
 
 	http.HandleFunc("/planeTracker", response)
 
@@ -118,14 +124,10 @@ func response(w http.ResponseWriter, r *http.Request) {
 	getData(url)
 
 	t, err := template.ParseFiles("index.html")
-	if err != nil {
-		log.Print(err)
-	}
+	checkErr(err)
 
 	err = t.Execute(w, planes)
-	if err != nil {
-		log.Fatal(err)
-	}
+	checkErr(err)
 }
 
 func getData(url string) {
@@ -133,9 +135,7 @@ func getData(url string) {
 	body, _ := ioutil.ReadAll(result.Body)
 
 	jsonErr := json.Unmarshal(body, &planes)
-	if jsonErr != nil {
-		log.Fatal(jsonErr)
-	}
+	checkErr(jsonErr)
 }
 
 func getLat(coordinates string) string {
@@ -175,4 +175,26 @@ func getApiUrl(coordinates string) string {
 	apiUrl := joinUrl(lat, long, radius)
 
 	return apiUrl
+}
+
+func checkSig() {
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, syscall.SIGINT)
+
+	go func() {
+		for sig := range c {
+			switch sig {
+			case syscall.SIGINT:
+				fmt.Println("Process terminated - SIGINT")
+				time.Sleep(5000)
+				os.Exit(1)
+			}
+		}
+	}()
+}
+
+func checkErr(e error) {
+	if e != nil {
+		panic(e)
+	}
 }
